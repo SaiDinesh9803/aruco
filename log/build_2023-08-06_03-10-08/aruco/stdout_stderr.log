@@ -1,0 +1,35 @@
+running egg_info
+creating build/aruco/aruco.egg-info
+writing build/aruco/aruco.egg-info/PKG-INFO
+writing dependency_links to build/aruco/aruco.egg-info/dependency_links.txt
+writing entry points to build/aruco/aruco.egg-info/entry_points.txt
+writing requirements to build/aruco/aruco.egg-info/requires.txt
+writing top-level names to build/aruco/aruco.egg-info/top_level.txt
+writing manifest file 'build/aruco/aruco.egg-info/SOURCES.txt'
+reading manifest file 'build/aruco/aruco.egg-info/SOURCES.txt'
+writing manifest file 'build/aruco/aruco.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/sai/dev_ws/src/aruco/build/aruco/build
+creating /home/sai/dev_ws/src/aruco/build/aruco/build/lib
+creating /home/sai/dev_ws/src/aruco/build/aruco/build/lib/aruco
+copying aruco/__init__.py -> /home/sai/dev_ws/src/aruco/build/aruco/build/lib/aruco
+copying aruco/minimal_detector_function.py -> /home/sai/dev_ws/src/aruco/build/aruco/build/lib/aruco
+running install
+running install_lib
+creating /home/sai/dev_ws/src/aruco/install/aruco/lib/python3.10/site-packages/aruco
+copying /home/sai/dev_ws/src/aruco/build/aruco/build/lib/aruco/__init__.py -> /home/sai/dev_ws/src/aruco/install/aruco/lib/python3.10/site-packages/aruco
+copying /home/sai/dev_ws/src/aruco/build/aruco/build/lib/aruco/minimal_detector_function.py -> /home/sai/dev_ws/src/aruco/install/aruco/lib/python3.10/site-packages/aruco
+byte-compiling /home/sai/dev_ws/src/aruco/install/aruco/lib/python3.10/site-packages/aruco/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/sai/dev_ws/src/aruco/install/aruco/lib/python3.10/site-packages/aruco/minimal_detector_function.py to minimal_detector_function.cpython-310.pyc
+running install_data
+creating /home/sai/dev_ws/src/aruco/install/aruco/share/ament_index
+creating /home/sai/dev_ws/src/aruco/install/aruco/share/ament_index/resource_index
+creating /home/sai/dev_ws/src/aruco/install/aruco/share/ament_index/resource_index/packages
+copying resource/aruco -> /home/sai/dev_ws/src/aruco/install/aruco/share/ament_index/resource_index/packages
+copying package.xml -> /home/sai/dev_ws/src/aruco/install/aruco/share/aruco
+running install_egg_info
+Copying build/aruco/aruco.egg-info to /home/sai/dev_ws/src/aruco/install/aruco/lib/python3.10/site-packages/aruco-0.0.0-py3.10.egg-info
+running install_scripts
+Installing image_converter script to /home/sai/dev_ws/src/aruco/install/aruco/lib/aruco
+writing list of installed files to '/home/sai/dev_ws/src/aruco/build/aruco/install.log'

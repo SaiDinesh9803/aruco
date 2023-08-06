@@ -1,0 +1,3 @@
+[console_scripts]
+image_converter = aruco.minimal_detector_function:main
+

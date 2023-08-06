@@ -1,0 +1,37 @@
+[0.535s] Invoking command in '/home/sai/dev_ws/src/aruco': PYTHONPATH=/home/sai/dev_ws/src/aruco/build/aruco/prefix_override:/home/sai/dev_ws/src/aruco/install/aruco/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/aruco build --build-base /home/sai/dev_ws/src/aruco/build/aruco/build install --record /home/sai/dev_ws/src/aruco/build/aruco/install.log --single-version-externally-managed
+[0.745s] running egg_info
+[0.745s] creating build/aruco/aruco.egg-info
+[0.745s] writing build/aruco/aruco.egg-info/PKG-INFO
+[0.745s] writing dependency_links to build/aruco/aruco.egg-info/dependency_links.txt
+[0.745s] writing entry points to build/aruco/aruco.egg-info/entry_points.txt
+[0.745s] writing requirements to build/aruco/aruco.egg-info/requires.txt
+[0.745s] writing top-level names to build/aruco/aruco.egg-info/top_level.txt
+[0.746s] writing manifest file 'build/aruco/aruco.egg-info/SOURCES.txt'
+[0.747s] reading manifest file 'build/aruco/aruco.egg-info/SOURCES.txt'
+[0.747s] writing manifest file 'build/aruco/aruco.egg-info/SOURCES.txt'
+[0.747s] running build
+[0.747s] running build_py
+[0.748s] creating /home/sai/dev_ws/src/aruco/build/aruco/build
+[0.748s] creating /home/sai/dev_ws/src/aruco/build/aruco/build/lib
+[0.748s] creating /home/sai/dev_ws/src/aruco/build/aruco/build/lib/aruco
+[0.748s] copying aruco/__init__.py -> /home/sai/dev_ws/src/aruco/build/aruco/build/lib/aruco
+[0.748s] copying aruco/minimal_detector_function.py -> /home/sai/dev_ws/src/aruco/build/aruco/build/lib/aruco
+[0.748s] running install
+[0.748s] running install_lib
+[0.748s] creating /home/sai/dev_ws/src/aruco/install/aruco/lib/python3.10/site-packages/aruco
+[0.748s] copying /home/sai/dev_ws/src/aruco/build/aruco/build/lib/aruco/__init__.py -> /home/sai/dev_ws/src/aruco/install/aruco/lib/python3.10/site-packages/aruco
+[0.749s] copying /home/sai/dev_ws/src/aruco/build/aruco/build/lib/aruco/minimal_detector_function.py -> /home/sai/dev_ws/src/aruco/install/aruco/lib/python3.10/site-packages/aruco
+[0.749s] byte-compiling /home/sai/dev_ws/src/aruco/install/aruco/lib/python3.10/site-packages/aruco/__init__.py to __init__.cpython-310.pyc
+[0.749s] byte-compiling /home/sai/dev_ws/src/aruco/install/aruco/lib/python3.10/site-packages/aruco/minimal_detector_function.py to minimal_detector_function.cpython-310.pyc
+[0.749s] running install_data
+[0.750s] creating /home/sai/dev_ws/src/aruco/install/aruco/share/ament_index
+[0.750s] creating /home/sai/dev_ws/src/aruco/install/aruco/share/ament_index/resource_index
+[0.750s] creating /home/sai/dev_ws/src/aruco/install/aruco/share/ament_index/resource_index/packages
+[0.750s] copying resource/aruco -> /home/sai/dev_ws/src/aruco/install/aruco/share/ament_index/resource_index/packages
+[0.750s] copying package.xml -> /home/sai/dev_ws/src/aruco/install/aruco/share/aruco
+[0.750s] running install_egg_info
+[0.751s] Copying build/aruco/aruco.egg-info to /home/sai/dev_ws/src/aruco/install/aruco/lib/python3.10/site-packages/aruco-0.0.0-py3.10.egg-info
+[0.752s] running install_scripts
+[0.766s] Installing image_converter script to /home/sai/dev_ws/src/aruco/install/aruco/lib/aruco
+[0.766s] writing list of installed files to '/home/sai/dev_ws/src/aruco/build/aruco/install.log'
+[0.785s] Invoked command in '/home/sai/dev_ws/src/aruco' returned '0': PYTHONPATH=/home/sai/dev_ws/src/aruco/build/aruco/prefix_override:/home/sai/dev_ws/src/aruco/install/aruco/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/aruco build --build-base /home/sai/dev_ws/src/aruco/build/aruco/build install --record /home/sai/dev_ws/src/aruco/build/aruco/install.log --single-version-externally-managed

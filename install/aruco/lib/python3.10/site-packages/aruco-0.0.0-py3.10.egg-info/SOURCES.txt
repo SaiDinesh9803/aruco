@@ -1,0 +1,13 @@
+package.xml
+setup.cfg
+setup.py
+aruco/__init__.py
+aruco/minimal_detector_function.py
+build/aruco/aruco.egg-info/PKG-INFO
+build/aruco/aruco.egg-info/SOURCES.txt
+build/aruco/aruco.egg-info/dependency_links.txt
+build/aruco/aruco.egg-info/entry_points.txt
+build/aruco/aruco.egg-info/requires.txt
+build/aruco/aruco.egg-info/top_level.txt
+build/aruco/aruco.egg-info/zip-safe
+resource/aruco
