@@ -19,9 +19,9 @@ class ArucoDetector_node(Node):
             10
         )  
         
-        with open('resource/camera_cal.npy', 'rb') as f:
-            self.camera_matrix = np.load(f)
-            self.camera_distortion = np.load(f)
+        
+        self.camera_matrix = np.array([[494.30114815 , 0 , 322.46760411] ,[0 , 493.52032388 , 240.6078525 ] , [0 , 0 , 1]])
+        self.camera_distortion = np.array([[ 9.71518504e-03 , 1.17503633e+00 , -1.27224644e-03 , 1.90922858e-03 , -4.38978499e+00]])
 
         
         
@@ -47,6 +47,8 @@ class ArucoDetector_node(Node):
                 for id_number in id:
                     self.Detected_ArUco_markers[id_number] = self.corners[i][0]
                     
+                print("Length of Detected Markers : ", len(self.Detected_ArUco_markers))
+                    
         except TypeError:
             print("No ArUco in front of me")
             
@@ -56,12 +58,12 @@ class ArucoDetector_node(Node):
     
     def mark_ArUco(self, img, Detected_Aruco_markers):
         self.Detected_ArUco_markers = Detected_Aruco_markers
-        self.img = img
-        
+        self.img = img     
         self.ids = self.Detected_ArUco_markers.keys()
         #print(self.Detected_ArUco_markers)
         self.centre_aruco = {}
         self.top_centre = {}
+        
         
         try:
             for id in self.ids:
@@ -102,8 +104,10 @@ class ArucoDetector_node(Node):
         self.img = self.mark_ArUco(self.cv_image, self.Detected_ArUco_markers)
         
         if len(self.Detected_ArUco_markers) > 0:
+            
+            detected_id, detected_corners = next(iter(self.Detected_ArUco_markers.items()))
         
-            self.estimated_val = self.estimate_pose(self.object_corners, self.corners, self.camera_matrix, self.camera_distortion)
+            self.estimated_val = self.estimate_pose(self.object_corners, detected_corners, self.camera_matrix, self.camera_distortion)
 
             print("solve pnp - output : ",self.estimated_val)
         cv2.namedWindow("ImageWindow", 1)
