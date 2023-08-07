@@ -6,8 +6,6 @@ from cv_bridge import CvBridge, CvBridgeError
 import numpy as np
 
 
-
-
 class ArucoDetector_node(Node):
     def __init__(self):
         super().__init__('cv_bridge_example')
@@ -61,7 +59,7 @@ class ArucoDetector_node(Node):
         self.img = img
         
         self.ids = self.Detected_ArUco_markers.keys()
-        print(self.Detected_ArUco_markers)
+        #print(self.Detected_ArUco_markers)
         self.centre_aruco = {}
         self.top_centre = {}
         
