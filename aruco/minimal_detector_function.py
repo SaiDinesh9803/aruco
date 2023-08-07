@@ -6,10 +6,13 @@ from cv_bridge import CvBridge, CvBridgeError
 import numpy as np
 
 
+
+
 class ArucoDetector_node(Node):
     def __init__(self):
         super().__init__('cv_bridge_example')
         self.bridge = CvBridge()
+        self.marker_size = 25
 
         self.subscription = self.create_subscription(
             CompressedImage,
@@ -17,6 +20,7 @@ class ArucoDetector_node(Node):
             self.image_callback,
             10
         )  
+        
         with open('resource/camera_cal.npy', 'rb') as f:
             self.camera_matrix = np.load(f)
             self.camera_distortion = np.load(f)
@@ -24,9 +28,16 @@ class ArucoDetector_node(Node):
         
         
         self.Detected_ArUco_markers = {}
-        self.aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
+        self.aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_250)
         self.parameters = cv2.aruco.DetectorParameters()
         self.detector = cv2.aruco.ArucoDetector(self.aruco_dict, self.parameters)
+        self.object_corners = np.array([
+            [-self.marker_size / 2, self.marker_size / 2, 0],
+            [self.marker_size / 2, self.marker_size / 2, 0],
+            [self.marker_size / 2, -self.marker_size / 2, 0],
+            [-self.marker_size / 2, -self.marker_size / 2, 0]
+])
+        
 
     def detect_ArUco(self, img):
         self.gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -67,7 +78,20 @@ class ArucoDetector_node(Node):
         except TypeError:
             print("No aruco in front of me")
         return self.img 
+    
+    def estimate_pose(self, obj_corners, corners, camera_matrix, dist_coeffs):
+            self.corners = corners
+            self.camera_matrix = camera_matrix
+            self.camera_distortion = dist_coeffs
+            self.obj_points = obj_corners
             
+            success, rvec, tvec = cv2.solvePnP(self.obj_points, self.corners, self.camera_matrix, self.camera_distortion)
+            
+            if success:
+                self.rotation_matrix, _ = cv2.Rodrigues(rvec)
+                self.translation_vector = tvec
+                
+            return (self.rotation_matrix, self.translation_vector)
         
     def image_callback(self, msg):
         try:
@@ -79,6 +103,11 @@ class ArucoDetector_node(Node):
         
         self.img = self.mark_ArUco(self.cv_image, self.Detected_ArUco_markers)
         
+        if len(self.Detected_ArUco_markers) > 0:
+        
+            self.estimated_val = self.estimate_pose(self.object_corners, self.corners, self.camera_matrix, self.camera_distortion)
+
+            print("solve pnp - output : ",self.estimated_val)
         cv2.namedWindow("ImageWindow", 1)
         cv2.imshow("Image Window", self.img)
         cv2.waitKey(1)        
