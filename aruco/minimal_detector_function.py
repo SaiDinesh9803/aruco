@@ -3,6 +3,7 @@ from rclpy.node import Node
 from sensor_msgs.msg import CompressedImage
 import cv2
 from cv_bridge import CvBridge, CvBridgeError
+import numpy as np
 
 
 class ArucoDetector_node(Node):
@@ -15,7 +16,12 @@ class ArucoDetector_node(Node):
             '/image_raw/compressed',
             self.image_callback,
             10
-        )
+        )  
+        with open('resource/camera_cal.npy', 'rb') as f:
+            self.camera_matrix = np.load(f)
+            self.camera_distortion = np.load(f)
+
+        
         
         self.Detected_ArUco_markers = {}
         self.aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
