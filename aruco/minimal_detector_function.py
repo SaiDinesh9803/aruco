@@ -1,14 +1,18 @@
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import CompressedImage
+from geometry_msgs.msg import PoseStamped
 import cv2
 from cv_bridge import CvBridge, CvBridgeError
 import numpy as np
 
 
+
+
+
 class ArucoDetector_node(Node):
     def __init__(self):
-        super().__init__('cv_bridge_example')
+        super().__init__('aruco_detector')
         self.bridge = CvBridge()
         self.marker_size = 25
 
@@ -34,7 +38,8 @@ class ArucoDetector_node(Node):
             [self.marker_size / 2, self.marker_size / 2, 0],
             [self.marker_size / 2, -self.marker_size / 2, 0],
             [-self.marker_size / 2, -self.marker_size / 2, 0]
-])
+            ])
+        self.pose_publisher = self.create_publisher(PoseStamped, '/estimated_Pose', 10)
         
 
     def detect_ArUco(self, img):
@@ -46,12 +51,10 @@ class ArucoDetector_node(Node):
             for id in self.ids:
                 for id_number in id:
                     self.Detected_ArUco_markers[id_number] = self.corners[i][0]
-                    
-                print("Length of Detected Markers : ", len(self.Detected_ArUco_markers))
+                # print("Length of Detected Markers : ", len(self.Detected_ArUco_markers))
                     
         except TypeError:
             print("No ArUco in front of me")
-            
         i += 1
         return self.Detected_ArUco_markers
     
@@ -88,10 +91,10 @@ class ArucoDetector_node(Node):
             success, rvec, tvec = cv2.solvePnP(self.obj_points, self.corners, self.camera_matrix, self.camera_distortion)
             
             if success:
-                self.rotation_matrix, _ = cv2.Rodrigues(rvec)
+                self.rvec = rvec
                 self.translation_vector = tvec
                 
-            return (self.rotation_matrix, self.translation_vector)
+            return (self.rvec, self.translation_vector)
         
     def image_callback(self, msg):
         try:
@@ -105,11 +108,28 @@ class ArucoDetector_node(Node):
         
         if len(self.Detected_ArUco_markers) > 0:
             
-            detected_id, detected_corners = next(iter(self.Detected_ArUco_markers.items()))
+            _, detected_corners = next(iter(self.Detected_ArUco_markers.items()))
         
             self.estimated_val = self.estimate_pose(self.object_corners, detected_corners, self.camera_matrix, self.camera_distortion)
+            
+            if self.estimated_val[0] is not None and self.estimated_val[1] is not None:
+                pose_msg = PoseStamped()
+                pose_msg.header.stamp = self.get_clock().now().to_msg()
+                pose_msg.header.frame_id = 'estimated_pose'
+                # The below estimated_val[1] gives 3X1 vector
+                pose_msg.pose.position.x = float(self.estimated_val[1][0])
+                pose_msg.pose.position.y = float(self.estimated_val[1][1])
+                pose_msg.pose.position.z = float(self.estimated_val[1][2])
+                # The estimated_value[0] gives us a 3 * 1 rotation vector
+                pose_msg.pose.orientation.x = float(self.estimated_val[0][0])
+                pose_msg.pose.orientation.y = float(self.estimated_val[0][1])
+                pose_msg.pose.orientation.z = float(self.estimated_val[0][2])
+                
+                print((self.estimated_val[0][1]))
 
-            print("solve pnp - output : ",self.estimated_val)
+                
+                # print(self.rotation_matrix)
+                self.pose_publisher.publish(pose_msg)
         cv2.namedWindow("ImageWindow", 1)
         cv2.imshow("Image Window", self.img)
         cv2.waitKey(1)        
